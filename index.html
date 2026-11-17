@@ -127,7 +127,7 @@ DATA.forEach(sec=>{
 });
 document.getElementById('meta').innerHTML='<span><b>'+all.length+'</b> extraits</span>';
 const css=getComputedStyle(document.documentElement);
-const C={a:css.getPropertyValue('--accent').trim(),m:css.getPropertyValue('--line').trim(),d:css.getPropertyValue('--accent-dim').trim()};
+const C={a:'#151515',m:'#a3a3a0',d:'#6b6b6b'};
 function draw(t,p){
   const cv=t.cv,dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;if(!w)return;
   cv.width=w*dpr;cv.height=h*dpr;const g=cv.getContext('2d');g.scale(dpr,dpr);
