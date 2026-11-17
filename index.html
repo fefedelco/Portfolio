@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fefe Delco – Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* Studio de nuit : fond ardoise, accent ambre de VU-mètre. Une colonne, liste de pistes avec formes d'onde, lecteur fixé en bas. */
+:root{
+  --bg:#121419; --surface:#1a1d25; --line:#2a2e3a;
+  --text:#ece7df; --muted:#8f93a1; --accent:#f2b33d; --accent-dim:#6d5626;
+  --display:Calibri,Carlito,"Segoe UI",system-ui,sans-serif; --body:Calibri,Carlito,"Segoe UI",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);isolation:isolate;position:relative;color:var(--text);font-family:var(--body);font-size:16px;line-height:1.5;padding-bottom:96px}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+.kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 14px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,8vw,68px);line-height:1;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.aka{font-family:var(--display);font-size:20px;letter-spacing:.04em;color:var(--accent);margin:10px 0 0;font-weight:700}
+.who{font-size:18px;color:var(--text);margin:14px 0 6px;font-weight:500}
+.bio{color:var(--muted);max-width:60ch;margin:0;text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.meta b{color:var(--text);font-weight:700}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:12px;padding-bottom:12px}
+nav a{flex:none;color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:6px 14px;border:1px solid var(--line);border-radius:999px}
+nav a:hover,nav a:focus-visible{color:var(--text);border-color:var(--muted);outline:none}
+section{padding:40px 0 8px}
+h2{font-family:var(--display);font-weight:500;font-size:22px;margin:0 0 4px}
+.sub{color:var(--muted);font-size:14px;margin:0 0 16px;font-variant-numeric:tabular-nums}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.tr{display:grid;grid-template-columns:44px minmax(0,1fr) 52px;align-items:center;gap:14px;padding:10px 12px;border-radius:10px;cursor:pointer}
+.tr:hover{background:var(--surface)}
+.tr.on{background:var(--surface);box-shadow:inset 3px 0 0 var(--accent)}
+.pb{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer;padding:0}
+.pb:focus-visible,.ctl:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tr.on .pb{background:var(--accent);border-color:var(--accent);color:#1a1405}
+.pb svg,.ctl svg{width:16px;height:16px;fill:currentColor}
+.mid{min-width:0}
+.t{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+canvas.wf{display:block;width:100%;height:30px;margin-top:6px}
+.d{color:var(--muted);font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
+footer p{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+footer{margin-top:48px;padding:32px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer b{color:var(--text)}
+footer a{color:var(--accent)}
+.links{margin:16px 0 0}.links a{display:inline-block;color:var(--text);text-decoration:none;font-size:14px;font-weight:700;padding:6px 14px;border:1px solid var(--accent);border-radius:999px}.links a:hover,.links a:focus-visible{background:var(--accent);color:#1a1405;outline:none}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--surface);border-top:1px solid var(--line)}
+.bar .wrap{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;padding-top:12px;padding-bottom:12px}
+.ctls{display:flex;gap:6px;align-items:center}
+.ctl{width:36px;height:36px;border-radius:50%;border:none;background:transparent;color:var(--text);display:grid;place-items:center;cursor:pointer}
+.ctl.main{width:44px;height:44px;background:var(--accent);color:#1a1405}
+.now{min-width:0}
+.now .t{font-size:14px}
+.now .s{color:var(--muted);font-size:12px}
+.prog{height:6px;background:var(--line);border-radius:3px;margin-top:8px;cursor:pointer;position:relative}
+.prog i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:3px;width:0}
+.time{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:480px){.tr{grid-template-columns:40px minmax(0,1fr) 44px;gap:10px;padding:8px 6px}.time{display:none}.bar .wrap{grid-template-columns:auto minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+body::before{content:"";position:fixed;inset:-40px;z-index:-2;background:url("bg.jpg") center/cover no-repeat;filter:blur(2px)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(18,20,25,.55) 0%,rgba(18,20,25,.82) 45%,rgba(18,20,25,.92) 100%)}
+.tr:hover,.tr.on{background:color-mix(in srgb,var(--surface) 85%,transparent)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <p class="kicker">Portfolio musique</p>
+  <h1>Fefe</h1>
+  <p class="aka">Fefe Delco · Félix Delhay</p>
+  <p class="who">Producteur, compositeur, sound designer, batteur</p>
+  <p class="bio">Passionné de musique, j'ai grandi entre la batterie, la trompette et les percussions : sept ans de batterie, du rock au jazz, en cours puis en groupe. À la fin du lycée, je me suis formé à la MAO, et depuis je compose des instrumentales qui passent par l'électro, la synthwave, le hip-hop, le lo-fi et l'ambient, avec un goût particulier pour les textures : piano, violon, synthés et sons de nature. Tout est produit dans FL Studio et Logic Pro, mixé et masterisé par mes soins.</p>
+  <p class="bio" style="margin-top:10px">Titulaire d'un master 2 en acoustique, acousticien et bioacousticien de formation, je suis fasciné par le son sous toutes ses formes : le grain d'un bruit, la résonance d'une pièce, le chant d'un animal. Cette oreille d'acousticien nourrit directement ma façon de composer, de mixer et de créer des ambiances.</p>
+  <div class="meta" id="meta"></div>
+  <p class="links"><a href="https://www.instagram.com/fefe_delco/">Instagram · @fefe_delco</a></p>
+</div></header>
+<div id="nav" hidden></div>
+<main class="wrap" id="main"></main>
+<footer><div class="wrap">
+  <p><b>Contact</b> · fefe.del.co@gmail.com<br><b>Instagram</b> · <a href="https://www.instagram.com/fefe_delco/">@fefe_delco</a></p>
+  <p>Ouvert aux projets : musique à l'image, sound design, production.</p>
+  <p>© Fefe Delco, tous droits réservés. Extraits à écouter uniquement : toute copie, diffusion ou réutilisation est interdite sans accord.</p>
+</div></footer>
+<div class="bar" role="region" aria-label="Lecteur"><div class="wrap">
+  <div class="ctls">
+    <button class="ctl" id="prev" aria-label="Morceau précédent"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+    <button class="ctl main" id="play" aria-label="Lecture"><svg viewBox="0 0 24 24" id="pi"><path d="M7 4l13 8-13 8z"/></svg></button>
+    <button class="ctl" id="next" aria-label="Morceau suivant"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+  </div>
+  <div class="now"><div class="t" id="nt">Choisissez un morceau</div><div class="s" id="ns">7 extraits</div><div class="prog" id="prog" aria-label="Position dans le morceau"><i id="pf"></i></div></div>
+  <div class="time" id="tm">0:00 / 0:00</div>
+</div></div>
+<audio id="au" preload="none" controlslist="nodownload"></audio>
+<script>
+const DATA=[{"id": "exemples", "label": "Quelques exemples", "tracks": [{"t": "Hope Of Light", "src": "audio/hope-of-light.mp3", "d": 30, "w": [0.17, 0.29, 0.31, 0.65, 0.67, 0.62, 0.75, 0.53, 0.71, 0.64, 0.73, 0.56, 0.72, 0.82, 0.63, 0.62, 0.88, 0.85, 0.79, 0.86, 0.65, 0.69, 0.73, 0.73, 0.6, 0.72, 0.66, 0.57, 0.82, 0.79, 0.67, 0.6, 0.71, 0.57, 0.6, 0.73, 0.68, 0.74, 0.57, 0.62, 0.95, 1.0, 0.99, 0.84, 0.72, 0.77, 0.9, 0.71, 0.87, 0.89, 0.73, 0.71, 0.79, 0.91, 0.92, 0.85, 0.8, 0.73, 0.7, 0.81, 0.69, 0.69, 0.76, 0.76, 0.74, 0.83, 0.76, 0.89, 0.88, 0.83, 0.83, 0.88, 0.85, 0.85, 0.85, 0.86, 0.83, 0.83, 0.86, 0.88, 0.94, 0.86, 0.82, 0.93, 0.8, 0.89, 0.87, 0.87, 0.89, 0.81, 0.8, 0.62, 0.58, 0.36, 0.24, 0.08]}, {"t": "Fading Memory", "src": "audio/fading-memory.mp3", "d": 30, "w": [0.06, 0.17, 0.27, 0.39, 0.44, 0.8, 0.83, 0.61, 0.52, 0.6, 0.62, 0.61, 0.8, 0.47, 0.48, 0.64, 0.47, 0.54, 0.59, 0.53, 0.52, 0.42, 0.67, 0.87, 0.49, 1.0, 0.58, 0.63, 0.48, 0.56, 0.43, 0.4, 0.44, 0.47, 0.39, 0.41, 0.44, 0.3, 0.53, 0.57, 0.47, 0.63, 0.51, 0.65, 0.9, 0.68, 0.83, 0.7, 0.84, 0.75, 0.86, 0.74, 0.66, 0.76, 0.79, 0.57, 0.77, 0.71, 0.76, 0.69, 0.46, 0.62, 0.57, 0.84, 0.78, 0.85, 0.82, 0.76, 0.7, 0.74, 0.7, 0.64, 0.75, 0.68, 0.67, 0.89, 0.9, 0.74, 0.63, 0.4, 0.44, 0.33, 0.43, 0.38, 0.43, 0.42, 0.46, 0.51, 0.45, 0.41, 0.36, 0.37, 0.26, 0.21, 0.09, 0.05]}, {"t": "Demo 1", "src": "audio/demo-5.mp3", "d": 30, "w": [0.1, 0.28, 0.25, 0.62, 0.23, 0.8, 0.88, 0.77, 0.98, 0.82, 0.72, 0.84, 0.76, 0.76, 0.85, 0.91, 0.77, 0.72, 0.84, 0.83, 0.65, 0.72, 0.74, 0.64, 0.55, 0.91, 0.66, 0.98, 0.91, 0.88, 0.89, 0.78, 0.92, 0.91, 0.97, 0.7, 0.93, 0.83, 0.79, 1.0, 0.83, 0.92, 0.79, 0.83, 0.86, 0.97, 0.62, 0.98, 0.8, 0.91, 0.96, 0.84, 0.88, 0.92, 0.84, 0.84, 0.77, 0.45, 0.96, 0.68, 0.76, 0.82, 0.9, 0.9, 0.65, 0.74, 0.74, 0.85, 0.42, 0.94, 0.83, 0.93, 0.8, 0.9, 0.9, 0.91, 0.87, 0.86, 0.68, 0.49, 0.99, 0.8, 0.88, 0.86, 0.93, 0.93, 0.75, 0.8, 0.77, 0.83, 0.63, 0.65, 0.46, 0.45, 0.1, 0.03]}, {"t": "Demo 2", "src": "audio/demo-4-lo-fi.mp3", "d": 30, "w": [0.05, 0.11, 0.46, 0.39, 0.33, 0.7, 0.95, 0.73, 0.82, 0.49, 0.89, 0.72, 0.78, 0.31, 0.86, 0.47, 0.61, 0.34, 0.14, 0.89, 0.55, 0.22, 0.61, 0.92, 0.48, 0.66, 0.34, 0.91, 0.75, 0.67, 0.18, 0.85, 0.18, 0.71, 0.47, 0.91, 0.62, 0.62, 0.36, 0.6, 0.28, 0.27, 0.79, 0.36, 0.95, 0.57, 0.77, 0.25, 0.88, 0.18, 0.62, 0.17, 0.9, 0.57, 0.31, 0.53, 0.56, 0.94, 0.29, 0.61, 0.43, 1.0, 0.82, 0.73, 0.22, 0.86, 0.15, 0.74, 0.47, 0.88, 0.74, 0.32, 0.71, 0.91, 0.63, 0.74, 0.65, 0.43, 0.91, 0.63, 0.8, 0.27, 0.89, 0.21, 0.68, 0.19, 0.92, 0.61, 0.18, 0.47, 0.77, 0.31, 0.33, 0.18, 0.11, 0.15]}, {"t": "Demo 3", "src": "audio/bo-rat.mp3", "d": 30, "w": [0.13, 0.22, 0.47, 0.68, 0.63, 0.74, 0.35, 0.23, 0.7, 0.57, 0.88, 0.95, 0.78, 0.83, 0.45, 0.26, 0.68, 0.59, 0.94, 1.0, 0.82, 0.6, 0.72, 0.18, 0.18, 0.77, 0.6, 0.95, 0.91, 0.65, 0.78, 0.21, 0.17, 0.69, 0.61, 0.89, 0.97, 0.75, 0.79, 0.4, 0.24, 0.7, 0.58, 0.97, 0.99, 0.85, 0.87, 0.52, 0.29, 0.67, 0.64, 0.93, 0.91, 0.88, 0.63, 0.66, 0.15, 0.12, 0.7, 0.62, 0.96, 0.91, 0.67, 0.76, 0.26, 0.18, 0.75, 0.6, 0.9, 0.91, 0.73, 0.72, 0.46, 0.28, 0.75, 0.64, 0.95, 0.96, 0.79, 0.87, 0.51, 0.28, 0.67, 0.66, 0.95, 0.89, 0.91, 0.64, 0.71, 0.17, 0.14, 0.51, 0.38, 0.42, 0.25, 0.11]}, {"t": "Demo 4", "src": "audio/demo-1.mp3", "d": 30, "w": [0.23, 0.44, 0.51, 0.77, 0.82, 0.92, 0.96, 0.89, 0.94, 0.94, 0.94, 0.95, 0.94, 0.92, 0.79, 0.86, 0.93, 0.98, 0.85, 0.89, 0.93, 0.95, 0.94, 0.97, 0.94, 0.94, 0.96, 0.97, 0.95, 0.94, 0.94, 0.95, 0.98, 0.94, 0.95, 0.95, 0.82, 1.0, 0.94, 0.95, 0.87, 0.92, 0.92, 0.83, 0.11, 0.97, 0.97, 0.95, 0.96, 0.98, 0.98, 0.94, 0.96, 0.95, 0.97, 0.97, 0.95, 0.96, 0.96, 0.94, 0.94, 0.95, 0.94, 0.96, 0.94, 0.94, 0.92, 0.97, 0.92, 0.98, 0.98, 0.97, 0.95, 0.96, 0.96, 0.96, 0.95, 0.97, 0.93, 0.96, 0.95, 0.94, 0.97, 0.99, 0.95, 0.96, 0.93, 0.95, 0.91, 0.84, 0.77, 0.7, 0.53, 0.35, 0.25, 0.14]}, {"t": "Demo 5", "src": "audio/demo-3.mp3", "d": 30, "w": [0.18, 0.39, 0.59, 0.64, 0.73, 0.79, 0.4, 0.49, 0.92, 0.93, 0.88, 0.78, 0.91, 0.89, 0.73, 0.41, 0.48, 0.67, 0.93, 0.86, 0.92, 0.97, 0.56, 0.91, 0.95, 0.91, 0.83, 0.74, 0.44, 0.37, 0.35, 0.35, 0.7, 0.92, 0.63, 0.54, 0.92, 0.85, 0.74, 0.83, 0.9, 0.81, 0.59, 0.93, 0.95, 0.6, 0.56, 0.57, 0.4, 0.31, 0.31, 0.35, 0.51, 0.54, 0.17, 0.93, 0.89, 0.79, 0.62, 0.91, 0.47, 0.92, 0.91, 0.92, 0.91, 0.83, 0.65, 0.83, 0.47, 0.44, 0.9, 0.92, 0.9, 1.0, 0.9, 0.55, 0.53, 0.73, 0.67, 0.91, 0.88, 0.9, 0.94, 0.65, 0.84, 0.92, 0.96, 0.84, 0.75, 0.55, 0.87, 0.39, 0.53, 0.37, 0.26, 0.15]}]}];
+const PLAY='<path d="M7 4l13 8-13 8z"/>',PAUSE='<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
+const fmt=s=>{s=Math.max(0,Math.round(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const all=[];const main=document.getElementById('main'),nav=document.getElementById('nav');
+let total=0;
+DATA.forEach(sec=>{
+  const dur=sec.tracks.reduce((a,t)=>a+t.d,0);total+=dur;
+  
+  const s=document.createElement('section');s.id=sec.id;
+  s.innerHTML='<h2>'+sec.label+'</h2><p class="sub">'+sec.tracks.length+' extraits de 30 secondes</p>';
+  const ol=document.createElement('ol');
+  sec.tracks.forEach(t=>{
+    t.sec=sec.label;t.i=all.length;all.push(t);
+    const li=document.createElement('li');li.className='tr';
+    li.innerHTML='<button class="pb" aria-label="Écouter '+t.t.replace(/"/g,'')+'"><svg viewBox="0 0 24 24">'+PLAY+'</svg></button><div class="mid"><div class="t"></div><canvas class="wf"></canvas></div><div class="d">'+fmt(t.d)+'</div>';
+    li.querySelector('.t').textContent=t.t;t.el=li;t.cv=li.querySelector('canvas');
+    li.querySelector('.pb').addEventListener('click',e=>{e.stopPropagation();toggle(t.i)});
+    t.cv.addEventListener('click',e=>{e.stopPropagation();const r=t.cv.getBoundingClientRect();seekTo(t.i,(e.clientX-r.left)/r.width)});
+    li.addEventListener('click',()=>toggle(t.i));
+    ol.appendChild(li);
+  });
+  s.appendChild(ol);main.appendChild(s);
+});
+document.getElementById('meta').innerHTML='<span><b>'+all.length+'</b> extraits</span>';
+const css=getComputedStyle(document.documentElement);
+const C={a:css.getPropertyValue('--accent').trim(),m:css.getPropertyValue('--line').trim(),d:css.getPropertyValue('--accent-dim').trim()};
+function draw(t,p){
+  const cv=t.cv,dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;if(!w)return;
+  cv.width=w*dpr;cv.height=h*dpr;const g=cv.getContext('2d');g.scale(dpr,dpr);
+  const n=t.w.length,bw=w/n;
+  for(let i=0;i<n;i++){const v=Math.max(.06,t.w[i]),bh=v*h;g.fillStyle=(i/n<p)?C.a:(cur===t.i?C.d:C.m);g.fillRect(i*bw+bw*.18,(h-bh)/2,bw*.64,bh)}
+}
+const au=document.getElementById('au');let cur=-1;
+function setIcons(){
+  const playing=!au.paused;
+  all.forEach(t=>{t.el.classList.toggle('on',t.i===cur);t.el.querySelector('.pb svg').innerHTML=(t.i===cur&&playing)?PAUSE:PLAY});
+  document.getElementById('pi').innerHTML=playing?PAUSE:PLAY;
+  document.getElementById('play').setAttribute('aria-label',playing?'Pause':'Lecture');
+}
+function load(i){
+  const prev=cur;cur=i;const t=all[i];au.src=t.src;
+  document.getElementById('nt').textContent=t.t;document.getElementById('ns').textContent='Fefe Delco';
+  if(prev>=0)draw(all[prev],0);draw(t,0);
+}
+function play(){au.play().catch(()=>{});}
+function toggle(i){if(i!==cur){load(i);play()}else if(au.paused)play();else au.pause()}
+function seekTo(i,f){if(i!==cur){load(i);au.addEventListener('loadedmetadata',function h(){au.currentTime=f*au.duration;au.removeEventListener('loadedmetadata',h)});play()}else{if(au.duration)au.currentTime=f*au.duration;if(au.paused)play()}}
+document.getElementById('play').onclick=()=>{if(cur<0){load(0);play()}else toggle(cur)};
+document.getElementById('next').onclick=()=>{load((cur+1)%all.length);play()};
+document.getElementById('prev').onclick=()=>{if(au.currentTime>3&&cur>=0){au.currentTime=0}else{load((cur-1+all.length)%all.length);play()}};
+document.getElementById('prog').onclick=e=>{if(cur<0||!au.duration)return;const r=e.currentTarget.getBoundingClientRect();au.currentTime=(e.clientX-r.left)/r.width*au.duration};
+document.querySelectorAll('#main,.bar,audio').forEach(el=>el.addEventListener('contextmenu',e=>e.preventDefault()));
+au.addEventListener('play',setIcons);au.addEventListener('pause',setIcons);
+au.addEventListener('ended',()=>{if(cur<all.length-1){load(cur+1);play()}else setIcons()});
+let last=-1;
+au.addEventListener('timeupdate',()=>{
+  const d=au.duration||all[cur].d,p=au.currentTime/d;
+  document.getElementById('pf').style.width=(p*100)+'%';
+  document.getElementById('tm').textContent=fmt(au.currentTime)+' / '+fmt(d);
+  const q=Math.floor(p*all[cur].w.length);if(q!==last){last=q;draw(all[cur],p)}
+});
+const redraw=()=>all.forEach(t=>draw(t,t.i===cur&&au.duration?au.currentTime/au.duration:0));
+window.addEventListener('resize',redraw);
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(redraw);redraw();
+</script>
+</body>
+</html>
