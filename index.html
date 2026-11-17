@@ -38,6 +38,11 @@ header{padding:56px 0 28px;border-bottom:1px solid var(--line)}
 .kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 14px}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,8vw,68px);line-height:1;margin:0;text-wrap:balance;letter-spacing:-.01em}
 .aka{font-family:var(--display);font-size:20px;letter-spacing:.04em;color:var(--accent);margin:10px 0 0;font-weight:700}
+.titlerow{display:flex;align-items:center;gap:14px 22px;flex-wrap:wrap}
+.shuf{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#1a1405;border:none;border-radius:999px;padding:10px 18px;font:700 15px var(--body);cursor:pointer}
+.shuf svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.shuf:hover{filter:brightness(1.08)}.shuf:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.shuf[aria-pressed="true"]{box-shadow:0 0 0 3px rgba(242,179,61,.35)}
 .who{font-size:18px;color:var(--text);margin:14px 0 6px;font-weight:500}
 .bio{color:var(--muted);max-width:60ch;margin:0;text-align:justify;hyphens:auto;-webkit-hyphens:auto}
 .meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -91,7 +96,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradi
 <div class="bgl bg1" aria-hidden="true"></div><div class="bgl bg2" aria-hidden="true"></div>
 <header><div class="wrap">
   <p class="kicker">Portfolio musique</p>
-  <h1>Fefe</h1>
+  <div class="titlerow"><h1>Fefe</h1><button class="shuf" id="shuf" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h3.5l10 10H20M3 17h3.5l3-3M13.5 10l3-3H20M17.5 4.5 20 7l-2.5 2.5M17.5 14.5 20 17l-2.5 2.5"/></svg><span>Lecture aléatoire</span></button></div>
   <p class="aka">Fefe Delco · Félix Delhay</p>
   <p class="who">Producteur, compositeur, sound designer, batteur</p>
   <p class="bio">Passionné de musique, j'ai grandi entre la batterie, la trompette et les percussions : sept ans de batterie, du rock au jazz, en cours puis en groupe. À la fin du lycée, je me suis formé à la MAO, et depuis je compose des instrumentales qui passent par l'électro, la synthwave, le hip-hop, le lo-fi et l'ambient, avec un goût particulier pour les textures : piano, violon, synthés et sons de nature. Tout est produit dans FL Studio et Logic Pro, mixé et masterisé par mes soins.</p>
@@ -165,12 +170,16 @@ function play(){au.play().catch(()=>{});}
 function toggle(i){if(i!==cur){load(i);play()}else if(au.paused)play();else au.pause()}
 function seekTo(i,f){if(i!==cur){load(i);au.addEventListener('loadedmetadata',function h(){au.currentTime=f*au.duration;au.removeEventListener('loadedmetadata',h)});play()}else{if(au.duration)au.currentTime=f*au.duration;if(au.paused)play()}}
 document.getElementById('play').onclick=()=>{if(cur<0){load(0);play()}else toggle(cur)};
-document.getElementById('next').onclick=()=>{load((cur+1)%all.length);play()};
-document.getElementById('prev').onclick=()=>{if(au.currentTime>3&&cur>=0){au.currentTime=0}else{load((cur-1+all.length)%all.length);play()}};
+let order=null;
+function nxt(d){if(order){const k=order.indexOf(cur);return order[((k<0?0:k)+d+order.length)%order.length]}return (cur+d+all.length)%all.length}
+const shuf=document.getElementById('shuf');
+shuf.onclick=()=>{order=all.map(t=>t.i);for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}if(order[0]===cur&&order.length>1)order.push(order.shift());shuf.setAttribute('aria-pressed','true');shuf.querySelector('span').textContent='Aléatoire activé';load(order[0]);play()};
+document.getElementById('next').onclick=()=>{load(nxt(1));play()};
+document.getElementById('prev').onclick=()=>{if(au.currentTime>3&&cur>=0){au.currentTime=0}else{load(nxt(-1));play()}};
 document.getElementById('prog').onclick=e=>{if(cur<0||!au.duration)return;const r=e.currentTarget.getBoundingClientRect();au.currentTime=(e.clientX-r.left)/r.width*au.duration};
 document.querySelectorAll('#main,.bar,audio').forEach(el=>el.addEventListener('contextmenu',e=>e.preventDefault()));
 au.addEventListener('play',setIcons);au.addEventListener('pause',setIcons);
-au.addEventListener('ended',()=>{if(cur<all.length-1){load(cur+1);play()}else setIcons()});
+au.addEventListener('ended',()=>{if(order){const k=order.indexOf(cur);if(k<order.length-1){load(order[k+1]);play()}else setIcons()}else if(cur<all.length-1){load(cur+1);play()}else setIcons()});
 let last=-1;
 au.addEventListener('timeupdate',()=>{
   const d=au.duration||all[cur].d,p=au.currentTime/d;
