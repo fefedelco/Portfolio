@@ -65,12 +65,15 @@ footer a{color:var(--accent)}
 @media (max-width:480px){.tr{grid-template-columns:40px minmax(0,1fr) 44px;gap:10px;padding:8px 6px}.time{display:none}.bar .wrap{grid-template-columns:auto minmax(0,1fr)}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 html{scroll-behavior:smooth}
-body::before{content:"";position:fixed;inset:-40px;z-index:-2;background:url("bg.jpg") center/cover no-repeat;filter:blur(2px)}
+.bgl{position:fixed;inset:-40px;z-index:-2;background:center/cover no-repeat;filter:blur(2px);transition:opacity .25s linear}
+.bg1{background-image:url("bg.jpg")}
+.bg2{background-image:url("bg2.jpg");background-position:center 30%;opacity:0}
 body::after{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(18,20,25,.55) 0%,rgba(18,20,25,.82) 45%,rgba(18,20,25,.92) 100%)}
 .tr:hover,.tr.on{background:color-mix(in srgb,var(--surface) 85%,transparent)}
 </style>
 </head>
 <body>
+<div class="bgl bg1" aria-hidden="true"></div><div class="bgl bg2" aria-hidden="true"></div>
 <header><div class="wrap">
   <p class="kicker">Portfolio musique</p>
   <h1>Fefe</h1>
@@ -162,6 +165,8 @@ au.addEventListener('timeupdate',()=>{
 });
 const redraw=()=>all.forEach(t=>draw(t,t.i===cur&&au.duration?au.currentTime/au.duration:0));
 window.addEventListener('resize',redraw);
+const bg2=document.querySelector('.bg2');function bgScroll(){const m=document.documentElement.scrollHeight-innerHeight;const p=m>0?scrollY/m:0;bg2.style.opacity=Math.min(1,Math.max(0,(p-0.25)/0.35)).toFixed(3)}
+addEventListener('scroll',bgScroll,{passive:true});addEventListener('resize',bgScroll);bgScroll();
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(redraw);redraw();
 </script>
 </body>
